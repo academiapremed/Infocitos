@@ -17,16 +17,16 @@
 :root{
   color-scheme: light;
   --papel:#ffffff;
-  --mesa:#eef4f4;          /* neutro con sesgo al petróleo */
-  --tinta:#10272b;
-  --tinta-2:#4b6165;
-  --petroleo:#0e5f6b;      /* Farmacología */
-  --petroleo-osc:#0a4650;
-  --turquesa:#bfe7e4;
-  --violeta:#6b4fb3;       /* del logo */
-  --violeta-suave:#ece6fa;
-  --alerta:#c2542d;
-  --linea:#cfdcdc;
+  --mesa:#f0f9ff;          /* neutro con sesgo al petróleo */
+  --tinta:#0b2536;
+  --tinta-2:#3d5568;
+  --petroleo:#0284c7;      /* Farmacología: escala celeste */
+  --petroleo-osc:#075985;
+  --turquesa:#bae6fd;
+  --violeta:#0369a1;       /* del logo */
+  --violeta-suave:#e0f2fe;
+  --alerta:#e4573d;
+  --linea:#bae6fd;
   --display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
   --texto:"Nunito Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --r:18px;
@@ -68,7 +68,7 @@ a{color:var(--petroleo)}
 .fc{display:block}
 .fc-in{display:grid;position:relative;width:100%;transition:transform .55s cubic-bezier(.3,.8,.3,1);transform-style:preserve-3d}
 .fc[aria-pressed="true"] .fc-in{transform:rotateY(180deg)}
-.cara{grid-area:1/1;position:relative;aspect-ratio:1/1;min-width:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--papel);border-radius:26px;padding:26px 26px 22px;display:flex;flex-direction:column;gap:12px;box-shadow:0 18px 40px -18px rgba(14,95,107,.55),0 0 0 1px var(--linea)}
+.cara{grid-area:1/1;position:relative;aspect-ratio:1/1;min-width:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--papel);border-radius:26px;padding:26px 26px 22px;display:flex;flex-direction:column;gap:12px;box-shadow:0 18px 40px -18px rgba(2,132,199,.55),0 0 0 1px var(--linea)}
 .cara.rev{transform:rotateY(180deg)}
 .cara::before{content:"";position:absolute;inset:0 0 auto 0;height:10px;border-radius:26px 26px 0 0;background:var(--bloque,var(--petroleo))}
 .etq,.preg,.tec{display:block}
@@ -86,17 +86,27 @@ a{color:var(--petroleo)}
 .cara img.ilu{flex:1 1 90px;min-height:0;width:100%;object-fit:contain}
 /* pista "toca aquí": mano con ondas y un amago de giro, hasta el primer toque */
 .fc{position:relative}
-.toca{position:absolute;right:14%;bottom:30%;z-index:3;width:64px;height:64px;pointer-events:none;filter:drop-shadow(0 6px 10px rgba(16,39,43,.25));animation:toque 2.4s ease-in-out infinite}
+.toca{position:absolute;right:14%;bottom:30%;z-index:3;width:64px;height:64px;pointer-events:none;filter:drop-shadow(0 6px 10px rgba(11,37,54,.25));animation:toque 2.4s ease-in-out infinite}
 .toca svg{position:relative;display:block}
 .onda{position:absolute;left:31px;top:8px;width:0;height:0;border-radius:50%;box-shadow:0 0 0 0 var(--violeta);opacity:0;animation:onda 2.4s ease-out infinite}
 .onda.o2{animation-delay:.25s}
 @keyframes toque{0%,55%,100%{transform:translate(0,0) scale(1)}25%{transform:translate(-6px,-10px) scale(.92)}}
-@keyframes onda{0%,22%{box-shadow:0 0 0 0 rgba(107,79,179,.55);opacity:0}26%{opacity:1}60%,100%{box-shadow:0 0 0 30px rgba(107,79,179,0);opacity:0}}
+@keyframes onda{0%,22%{box-shadow:0 0 0 0 rgba(14,165,233,.55);opacity:0}26%{opacity:1}60%,100%{box-shadow:0 0 0 30px rgba(14,165,233,0);opacity:0}}
 @keyframes amago{0%,62%,100%{transform:rotateY(0)}74%{transform:rotateY(-22deg)}86%{transform:rotateY(6deg)}}
 .fc:not(.usada)[aria-pressed="false"] .toca~.fc-in{animation:amago 4.8s ease-in-out 1.2s infinite}
 .fc.usada .toca{display:none}
 .btn.late{animation:late 2.6s ease-in-out infinite}
-@keyframes late{0%,100%{box-shadow:0 0 0 0 rgba(14,95,107,.45)}60%{box-shadow:0 0 0 14px rgba(14,95,107,0)}}
+@keyframes late{0%,100%{box-shadow:0 0 0 0 rgba(2,132,199,.45)}60%{box-shadow:0 0 0 14px rgba(2,132,199,0)}}
+
+/* hoja de cuaderno y detalles a crayón (mismo estilo que las tarjetas) */
+body{background-color:var(--mesa);background-image:linear-gradient(rgba(125,211,252,.22) 1px,transparent 1px),linear-gradient(90deg,rgba(125,211,252,.22) 1px,transparent 1px);background-size:32px 32px}
+.cara{background-image:linear-gradient(rgba(125,211,252,.2) 1px,transparent 1px),linear-gradient(90deg,rgba(125,211,252,.2) 1px,transparent 1px);background-size:24px 24px}
+.tec{position:relative;isolation:isolate;border-top:0!important;padding:10px 12px 10px 18px!important;color:#0c4a6e!important}
+.tec::before{content:"";position:absolute;inset:1px 0 1px 4px;background:#e0f2fe;filter:url(#crayon-relleno);z-index:-1}
+.tec::after{content:"";position:absolute;left:2px;top:0;bottom:0;width:8px;background:var(--bloque,var(--petroleo));filter:url(#crayon);z-index:-1}
+.cab h2,.hero h1{position:relative}
+.eyebrow{position:relative;display:inline-block;padding-bottom:6px}
+.eyebrow::after{content:"";position:absolute;left:-2px;right:-2px;bottom:0;height:7px;background:var(--petroleo);opacity:.75;filter:url(#crayon);border-radius:4px}
 @media (prefers-reduced-motion:reduce){.fc-in{transition:none}.toca,.onda,.btn.late,.fc .fc-in{animation:none!important}}
 
 /* bandas */
@@ -162,6 +172,10 @@ footer img{height:26px}
 </head>
 <body>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<filter id="crayon" x="-5%" y="-30%" width="110%" height="160%"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3" result="r"/><feDisplacementMap in="SourceGraphic" in2="r" scale="3" result="d"/><feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="1" seed="8" result="g"/><feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.2 1.7" result="m"/><feComposite in="d" in2="m" operator="in"/></filter>
+<filter id="crayon-relleno" x="-3%" y="-6%" width="106%" height="112%"><feTurbulence type="fractalNoise" baseFrequency="0.035 0.9" numOctaves="2" seed="5" result="r"/><feDisplacementMap in="SourceGraphic" in2="r" scale="6" result="d"/><feTurbulence type="fractalNoise" baseFrequency="0.4 1.8" numOctaves="2" seed="2" result="g"/><feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.6 1.45" result="m"/><feComposite in="d" in2="m" operator="in"/></filter></defs></svg>
+
 
 <header class="top"><div class="w">
   <img src="logo.png" alt="infocitos">
@@ -189,7 +203,7 @@ footer img{height:26px}
     <p class="precio-mini">Precio de lanzamiento: <b data-precio="lanz">49 Bs</b> <s data-precio="normal">69 Bs</s></p>
   </div>
 
-  <button class="fc" type="button" aria-pressed="false" id="fc-hero" aria-label="Tarjeta de ejemplo. Toca para ver la respuesta."><span class="toca" aria-hidden="true"><span class="onda"></span><span class="onda o2"></span><svg viewBox="0 0 64 64" width="64" height="64"><path d="M26 34V13a5 5 0 0 1 10 0v15l11.5 2.6A7 7 0 0 1 53 37.4V44c0 9-6 15-15 15h-3c-5 0-8.500-2-11.500-6L13 39.500c-2-2.600-1-6 2-7 2.500-.8 4.500 0 6.500 2z" fill="#fff" stroke="#10272b" stroke-width="3.2" stroke-linejoin="round"/><path d="M36 28v7M43 30v6" stroke="#10272b" stroke-width="2.6" stroke-linecap="round" opacity=".45"/></svg></span>
+  <button class="fc" type="button" aria-pressed="false" id="fc-hero" aria-label="Tarjeta de ejemplo. Toca para ver la respuesta."><span class="toca" aria-hidden="true"><span class="onda"></span><span class="onda o2"></span><svg viewBox="0 0 64 64" width="64" height="64"><path d="M26 34V13a5 5 0 0 1 10 0v15l11.5 2.6A7 7 0 0 1 53 37.4V44c0 9-6 15-15 15h-3c-5 0-8.500-2-11.500-6L13 39.500c-2-2.600-1-6 2-7 2.500-.8 4.500 0 6.500 2z" fill="#fff" stroke="#0b2536" stroke-width="3.2" stroke-linejoin="round"/><path d="M36 28v7M43 30v6" stroke="#0b2536" stroke-width="2.6" stroke-linecap="round" opacity=".45"/></svg></span>
     <span class="fc-in">
       <span class="cara">
         <span class="etq">Mecanismo · Betalactámicos · 6/37</span>
@@ -227,17 +241,17 @@ footer img{height:26px}
     <p>Así son por dentro: primero la idea en lenguaje cotidiano, después el término técnico.</p>
   </div>
   <div class="muestras">
-    <button class="fc" type="button" aria-pressed="false" style="--bloque:#c2542d" aria-label="Tarjeta de efecto adverso. Toca para ver la respuesta."><span class="toca" aria-hidden="true"><span class="onda"></span><span class="onda o2"></span><svg viewBox="0 0 64 64" width="64" height="64"><path d="M26 34V13a5 5 0 0 1 10 0v15l11.5 2.6A7 7 0 0 1 53 37.4V44c0 9-6 15-15 15h-3c-5 0-8.500-2-11.500-6L13 39.500c-2-2.600-1-6 2-7 2.500-.8 4.500 0 6.500 2z" fill="#fff" stroke="#10272b" stroke-width="3.2" stroke-linejoin="round"/><path d="M36 28v7M43 30v6" stroke="#10272b" stroke-width="2.6" stroke-linecap="round" opacity=".45"/></svg></span>
+    <button class="fc" type="button" aria-pressed="false" style="--bloque:#e4573d" aria-label="Tarjeta de efecto adverso. Toca para ver la respuesta."><span class="toca" aria-hidden="true"><span class="onda"></span><span class="onda o2"></span><svg viewBox="0 0 64 64" width="64" height="64"><path d="M26 34V13a5 5 0 0 1 10 0v15l11.5 2.6A7 7 0 0 1 53 37.4V44c0 9-6 15-15 15h-3c-5 0-8.500-2-11.500-6L13 39.500c-2-2.600-1-6 2-7 2.500-.8 4.500 0 6.500 2z" fill="#fff" stroke="#0b2536" stroke-width="3.2" stroke-linejoin="round"/><path d="M36 28v7M43 30v6" stroke="#0b2536" stroke-width="2.6" stroke-linecap="round" opacity=".45"/></svg></span>
       <span class="fc-in">
         <span class="cara"><span class="etq">Efecto adverso · Antihipertensivos</span>
           <span class="preg">¿Por qué los IECA dan tos seca?</span>
           <svg viewBox="0 0 300 120" role="img" aria-label="Esquema: la ECA degrada bradicinina; el IECA la bloquea">
-            <rect x="8" y="42" width="84" height="38" rx="10" fill="#fbe9e2" stroke="#c2542d" stroke-width="2"/><text x="50" y="66" text-anchor="middle" font-size="13" font-weight="700" fill="#10272b">Bradicinina</text>
-            <path d="M96 61 h52" stroke="#10272b" stroke-width="2.5" fill="none"/><path d="M148 61 l-9 -6 v12 z" fill="#10272b"/>
-            <text x="122" y="50" text-anchor="middle" font-size="12" font-weight="700" fill="#0e5f6b">ECA</text>
-            <path d="M110 30 l24 24 M134 30 l-24 24" stroke="#c2542d" stroke-width="4" stroke-linecap="round"/>
-            <rect x="156" y="42" width="72" height="38" rx="10" fill="#eef4f4" stroke="#cfdcdc" stroke-width="2"/><text x="192" y="66" text-anchor="middle" font-size="12" fill="#4b6165">inactiva</text>
-            <path d="M50 84 q0 22 40 24 h150" stroke="#c2542d" stroke-width="2.5" fill="none" stroke-dasharray="5 4"/><text x="262" y="112" text-anchor="middle" font-size="14" font-weight="700" fill="#c2542d">tos</text>
+            <rect x="8" y="42" width="84" height="38" rx="10" fill="#fdece8" stroke="#e4573d" stroke-width="2"/><text x="50" y="66" text-anchor="middle" font-size="13" font-weight="700" fill="#0b2536">Bradicinina</text>
+            <path d="M96 61 h52" stroke="#0b2536" stroke-width="2.5" fill="none"/><path d="M148 61 l-9 -6 v12 z" fill="#0b2536"/>
+            <text x="122" y="50" text-anchor="middle" font-size="12" font-weight="700" fill="#0284c7">ECA</text>
+            <path d="M110 30 l24 24 M134 30 l-24 24" stroke="#e4573d" stroke-width="4" stroke-linecap="round"/>
+            <rect x="156" y="42" width="72" height="38" rx="10" fill="#f0f9ff" stroke="#bae6fd" stroke-width="2"/><text x="192" y="66" text-anchor="middle" font-size="12" fill="#3d5568">inactiva</text>
+            <path d="M50 84 q0 22 40 24 h150" stroke="#e4573d" stroke-width="2.5" fill="none" stroke-dasharray="5 4"/><text x="262" y="112" text-anchor="middle" font-size="14" font-weight="700" fill="#e4573d">tos</text>
           </svg>
           <span class="pie"><span class="gira">Voltear ↻</span><img src="logo.png" alt=""></span></span>
         <span class="cara rev"><span class="etq">Respuesta</span>
@@ -251,7 +265,7 @@ footer img{height:26px}
       </span>
     </button>
 
-    <button class="fc" type="button" aria-pressed="false" style="--bloque:#6b4fb3" aria-label="Tarjeta de caso clínico. Toca para ver la respuesta.">
+    <button class="fc" type="button" aria-pressed="false" style="--bloque:#0369a1" aria-label="Tarjeta de caso clínico. Toca para ver la respuesta.">
       <span class="fc-in">
         <span class="cara"><span class="etq">Caso clínico · Vancomicina</span>
           <span class="preg" style="font-size:1.02rem;font-family:var(--texto);font-weight:600;line-height:1.4">Varón de 58 años con bacteriemia por SARM. A los 10 minutos de iniciar la perfusión presenta enrojecimiento y prurito en cara, cuello y tórax, sin hipotensión ni broncoespasmo.</span>
@@ -272,12 +286,12 @@ footer img{height:26px}
         <span class="cara"><span class="etq">Algoritmo · Opioides</span>
           <span class="preg">Sospecha de sobredosis de opioides: ¿por dónde empiezas?</span>
           <svg viewBox="0 0 300 110" role="img" aria-label="Tríada: pupilas puntiformes, respiración lenta, conciencia disminuida">
-            <circle cx="52" cy="50" r="30" fill="#bfe7e4" stroke="#0e5f6b" stroke-width="2"/><circle cx="52" cy="50" r="5" fill="#10272b"/>
-            <text x="52" y="102" text-anchor="middle" font-size="12" fill="#4b6165">Miosis</text>
-            <path d="M112 50 q10 -22 20 0 t20 0 q14 -6 28 0" stroke="#0e5f6b" stroke-width="3" fill="none"/>
-            <text x="146" y="102" text-anchor="middle" font-size="12" fill="#4b6165">Respira lento</text>
-            <text x="246" y="62" text-anchor="middle" font-size="34" font-weight="700" fill="#6b4fb3">z z</text>
-            <text x="246" y="102" text-anchor="middle" font-size="12" fill="#4b6165">Estupor</text>
+            <circle cx="52" cy="50" r="30" fill="#bae6fd" stroke="#0284c7" stroke-width="2"/><circle cx="52" cy="50" r="5" fill="#0b2536"/>
+            <text x="52" y="102" text-anchor="middle" font-size="12" fill="#3d5568">Miosis</text>
+            <path d="M112 50 q10 -22 20 0 t20 0 q14 -6 28 0" stroke="#0284c7" stroke-width="3" fill="none"/>
+            <text x="146" y="102" text-anchor="middle" font-size="12" fill="#3d5568">Respira lento</text>
+            <text x="246" y="62" text-anchor="middle" font-size="34" font-weight="700" fill="#0369a1">z z</text>
+            <text x="246" y="102" text-anchor="middle" font-size="12" fill="#3d5568">Estupor</text>
           </svg>
           <span class="pie"><span class="gira">Voltear ↻</span><img src="logo.png" alt=""></span></span>
         <span class="cara rev"><span class="etq">Respuesta</span>
