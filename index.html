@@ -168,6 +168,54 @@ footer img{height:26px}
   .tipos,.bloques{grid-template-columns:1fr}
   section{padding-block:40px}
 }
+
+/* propuesta: logo grande */
+.top{padding-block:22px 10px}
+.top img{height:64px}
+@media (max-width:600px){.top img{height:52px}}
+/* propuesta: ¿Qué es infocitos? */
+.quees{padding-block:64px 56px;overflow:hidden}
+.quees .cab{max-width:640px}
+.quees h2 .marca{position:relative;white-space:nowrap}
+.quees h2 .marca svg{position:absolute;left:-10px;right:-10px;top:-14px;width:calc(100% + 20px);height:calc(100% + 28px);overflow:visible;pointer-events:none}
+.quees h2 .marca path{fill:none;stroke:#0ea5e9;stroke-width:5;stroke-linecap:round;filter:url(#crayon);stroke-dasharray:900;stroke-dashoffset:900;transition:stroke-dashoffset 1.4s ease-out .2s}
+.quees.visto h2 .marca path{stroke-dashoffset:0}
+.quees .intro{font-size:1.12rem;color:var(--tinta-2);margin-top:14px;max-width:38em}
+.pilares{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
+.pilar{position:relative;isolation:isolate;padding:22px 20px 20px;opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s}
+.quees.visto .pilar{opacity:1;transform:none}
+.quees.visto .pilar:nth-child(2){transition-delay:.15s}.quees.visto .pilar:nth-child(3){transition-delay:.3s}
+.pilar::before{content:"";position:absolute;inset:0;background:#fff;border-radius:6px;z-index:-2;box-shadow:0 10px 26px rgba(11,37,54,.08)}
+.pilar::after{content:"";position:absolute;inset:3px;border:3px solid var(--c,#0284c7);border-radius:10px;filter:url(#crayon);z-index:-1;opacity:.75}
+.pilar .ico{width:54px;height:54px;color:var(--c,#0284c7)}
+.pilar h3{margin-top:10px;font-size:1.2rem}
+.pilar p{margin-top:6px;color:var(--tinta-2);font-size:.98rem}
+.pilar .n{font-family:var(--display);font-weight:800;font-size:2rem;color:var(--c,#0284c7);line-height:1}
+.cinta{margin-top:40px;position:relative}
+.cinta .titulito{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--tinta-2);font-size:.92rem;margin-bottom:12px}
+.cinta .titulito svg{width:46px;height:20px;filter:url(#crayon)}
+.pista{display:flex;gap:16px;width:max-content;animation:cinta 60s linear infinite}
+.cinta:hover .pista{animation-play-state:paused}
+.pista img{width:210px;height:210px;object-fit:cover;border-radius:10px;background:#fff;box-shadow:0 8px 20px rgba(11,37,54,.12);transform:rotate(var(--r,0deg))}
+.pista img:nth-child(3n){--r:-1.5deg}.pista img:nth-child(3n+1){--r:1.2deg}
+@keyframes cinta{to{transform:translateX(-50%)}}
+.redes{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.red{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;color:var(--tinta);background:#fff;border-radius:999px;padding:10px 18px 10px 12px;position:relative;isolation:isolate}
+.red::after{content:"";position:absolute;inset:0;border:2.5px solid var(--tinta);border-radius:999px;filter:url(#crayon);z-index:-1}
+.red svg{width:24px;height:24px}
+@media (max-width:760px){.pilares{grid-template-columns:1fr}.pista img{width:150px;height:150px}}
+@media (prefers-reduced-motion:reduce){.pista{animation:none}.pilar{opacity:1;transform:none;transition:none}.quees h2 .marca path{stroke-dashoffset:0;transition:none}}
+
+/* sección de marca: colores del logo infocitos (negro, lila pervinca y morado) */
+.quees{--i-tinta:#1b1726;--i-lila:#8f99c6;--i-lila-suave:#e7e9f5;--i-morado:#5b4283;--i-morado-suave:#efe9f7;
+  background-color:#faf9fd;background-image:linear-gradient(rgba(143,153,198,.18) 1px,transparent 1px),linear-gradient(90deg,rgba(143,153,198,.18) 1px,transparent 1px);background-size:32px 32px}
+.quees h2,.quees h3{color:var(--i-tinta)}
+.quees .eyebrow{color:var(--i-morado)} .quees .eyebrow::after{background:var(--i-lila)}
+.quees h2 .marca path{stroke:var(--i-morado)}
+.quees .logo-grande{display:block;height:70px;width:auto;margin:8px 0 14px}
+@media (max-width:600px){.quees .logo-grande{height:54px}}
+.pilar::after{border-color:var(--c)}
+.cinta .titulito svg path{stroke:var(--i-morado)}
 </style>
 </head>
 <body>
@@ -178,7 +226,7 @@ footer img{height:26px}
 
 
 <header class="top"><div class="w">
-  <img src="logo.png" alt="infocitos">
+  <img src="logo-grande.png" alt="infocitos">
   <label class="pais" for="pais">¿Desde qué país nos ves?
     <select id="pais">
       <option value="BO">Bolivia</option>
@@ -228,12 +276,36 @@ footer img{height:26px}
 <section class="banda"><div class="w">
   <div class="incluye">
     <div><span class="n">407</span><h3>tarjetas</h3><p>11 bloques de 37, de farmacología básica a cardiología.</p></div>
-    <div><span class="n">88</span><h3>casos clínicos</h3><p>Uno por cada fármaco o concepto, con la respuesta razonada.</p></div>
+    <div><span class="n">121</span><h3>casos clínicos</h3><p>8 por bloque, uno por cada fármaco, y 3 casos integradores; con la respuesta razonada.</p></div>
     <div><span class="n">33</span><h3>algoritmos</h3><p>Diagramas de flujo para decidir, no listas para memorizar.</p></div>
     <div><span class="n">3</span><h3>formatos</h3><p>PDF para el móvil, PDF para imprimir y mazo de Anki.</p></div>
   </div>
 </div></section>
 
+<section class="quees" id="que-es"><div class="w">
+  <div class="cab">
+    <span class="eyebrow">Quiénes somos</span>
+    <img class="logo-grande" src="logo-grande.png" alt="infocitos">
+    <h2>¿Qué es <span class="marca">infocitos<svg viewBox="0 0 200 70" preserveAspectRatio="none" aria-hidden="true"><path d="M18 40 C 10 12, 120 2, 178 18 C 205 28, 190 60, 110 63 C 50 66, 4 56, 22 30"/></svg></span>?</h2>
+    <p class="intro">Un proyecto hecho por y para estudiantes de medicina: convertimos los temas que más cuestan en infografías y tarjetas claras, con dibujos, para entender primero y memorizar después.</p>
+  </div>
+  <div class="pilares">
+    <div class="pilar" style="--c:#5b4283"><svg class="ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="6" width="34" height="36" rx="4"/><path d="M14 16h20M14 24h20M14 32h12"/></svg>
+      <span class="n">7 al día</span><h3>Infografías en redes</h3><p>Cada día publicamos nuevas infografías de medicina dibujadas a crayón en TikTok e Instagram.</p></div>
+    <div class="pilar" style="--c:#8f99c6"><svg class="ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="11" width="26" height="30" rx="4"/><path d="M15 7h24a4 4 0 0 1 4 4v26"/><path d="M15 21h14M15 28h9"/></svg>
+      <span class="n">407</span><h3>Flashcards por materia</h3><p>Manuales completos para estudiar con método: casos clínicos, algoritmos y mnemotecnias. Empezamos por Farmacología.</p></div>
+    <div class="pilar" style="--c:#1b1726"><svg class="ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="17"/><path d="M17 25l5 5 10-11"/></svg>
+      <span class="n">Con fuentes</span><h3>Revisado dato a dato</h3><p>Cada dato se contrasta con libros de referencia antes de publicarse. Si encuentras un error, lo corregimos para todos.</p></div>
+  </div>
+  <div class="cinta" aria-label="Algunas de nuestras infografías">
+    <div class="titulito"><svg viewBox="0 0 46 20" fill="none" stroke="#0284c7" stroke-width="3" stroke-linecap="round"><path d="M2 10 C 14 2, 26 18, 42 9 M34 4 l8 5 -7 6"/></svg>Algunas de nuestras infografías</div>
+    <div class="pista"><img src="infografias/20.jpg" alt="" loading="lazy"><img src="infografias/22.jpg" alt="" loading="lazy"><img src="infografias/23.jpg" alt="" loading="lazy"><img src="infografias/26.jpg" alt="" loading="lazy"><img src="infografias/27.jpg" alt="" loading="lazy"><img src="infografias/33.jpg" alt="" loading="lazy"><img src="infografias/36.jpg" alt="" loading="lazy"><img src="infografias/40.jpg" alt="" loading="lazy"><img src="infografias/04.jpg" alt="" loading="lazy"><img src="infografias/30.jpg" alt="" loading="lazy"><img src="infografias/24.jpg" alt="" loading="lazy"><img src="infografias/39.jpg" alt="" loading="lazy"><img src="infografias/20.jpg" alt="" aria-hidden="true" loading="lazy"><img src="infografias/22.jpg" alt="" aria-hidden="true" loading="lazy"><img src="infografias/23.jpg" alt="" aria-hidden="true" loading="lazy"><img src="infografias/26.jpg" alt="" aria-hidden="true" loading="lazy"><img src="infografias/27.jpg" alt="" aria-hidden="true" loading="lazy"><img src="infografias/33.jpg" alt="" aria-hidden="true" loading="lazy"><img src="infografias/36.jpg" alt="" aria-hidden="true" loading="lazy"><img src="infografias/40.jpg" alt="" aria-hidden="true" loading="lazy"><img src="infografias/04.jpg" alt="" aria-hidden="true" loading="lazy"><img src="infografias/30.jpg" alt="" aria-hidden="true" loading="lazy"><img src="infografias/24.jpg" alt="" aria-hidden="true" loading="lazy"><img src="infografias/39.jpg" alt="" aria-hidden="true" loading="lazy"></div>
+  </div>
+  <div class="redes">
+    <a class="red" href="https://www.tiktok.com/@infocitos" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.8A4.3 4.3 0 0 1 15.5 3h-3.2v12.4a2.6 2.6 0 1 1-1.8-2.5V9.6a5.8 5.8 0 1 0 5 5.8V9a7.4 7.4 0 0 0 4.3 1.4V7.2a4.3 4.3 0 0 1-3.2-1.4z"/></svg>@infocitos en TikTok</a>
+    <a class="red" href="https://www.instagram.com/infocitos_" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>@infocitos_ en Instagram</a>
+  </div>
+</div></section>
 <section id="muestra"><div class="w">
   <div class="cab">
     <span class="eyebrow">Tarjetas de muestra</span>
@@ -422,5 +494,7 @@ footer img{height:26px}
 })();
 </script>
 
+<script>(function(){var q=document.getElementById("que-es");if(!q)return;if(!("IntersectionObserver" in window)){q.classList.add("visto");return;}
+new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){q.classList.add("visto");o.disconnect();}})},{threshold:.25}).observe(q);})();</script>
 </body>
 </html>
