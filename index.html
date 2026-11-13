@@ -277,6 +277,17 @@ footer.pie .pie-logo{height:52px;width:auto}
 .dudas-wa svg{width:20px;height:20px;flex:none}
 @media (max-width:480px){.dudas-btn span{font-size:.95rem}.dudas-panel{max-height:min(68vh,520px)}}
 @media (prefers-reduced-motion:no-preference){.dudas-panel:not([hidden]){animation:dudas-in .22s ease-out}@keyframes dudas-in{from{opacity:0;transform:translateY(8px)}}}
+
+/* bloque suelto */
+.otros .suelto{grid-column:1/-1;display:flex;flex-direction:column;gap:8px;min-width:0}
+.suelto-lbl{font-size:.85rem;font-weight:700;margin-top:6px;opacity:.9}
+.suelto select{font:600 .97rem var(--texto);color:var(--tinta);background:#fff;border:0;border-radius:12px;padding:11px 12px;width:100%;max-width:100%;min-width:0}
+.suelto-btn{position:relative;isolation:isolate;align-self:flex-start;display:inline-flex;justify-content:center;background:#fff;color:#075985;font-family:var(--display);font-weight:700;font-size:1rem;text-decoration:none;border-radius:999px;padding:11px 20px;margin-top:4px;max-width:100%;text-align:center}
+.suelto-btn::after{content:"";position:absolute;inset:-4px;border:2.5px solid #fff;border-radius:999px;filter:url(#crayon);opacity:.7;z-index:-1}
+.suelto-btn:hover{background:#e0f2fe}
+.suelto-qr{font-size:.88rem;margin-top:2px}
+.suelto-qr a{color:#fff;font-weight:700}
+@media (max-width:480px){.suelto-btn{align-self:stretch}}
 </style>
 </head>
 <body>
@@ -488,7 +499,13 @@ footer.pie .pie-logo{height:52px;width:auto}
         <li>Correcciones y mejoras incluidas.</li>
       </ul>
       <div class="otros">
-        <div><b data-precio="bloque">10 Bs</b>Un bloque suelto (unas 53 tarjetas)</div>
+        <div class="suelto">
+          <b data-precio="bloque">10 Bs</b>Un bloque suelto (unas 53 tarjetas)
+          <label for="bloque-sel" class="suelto-lbl">Elige el bloque</label>
+          <select id="bloque-sel"><option value="0">01 · Farmacología básica</option><option value="1">02 · Betalactámicos</option><option value="2">03 · Otros antibióticos</option><option value="3">04 · Antihipertensivos</option><option value="4">05 · Anticoagulantes y antiagregantes</option><option value="5">06 · Antidiabéticos e insulinas</option><option value="6">07 · Analgésicos, AINE y opioides</option><option value="7">08 · Antiepilépticos</option><option value="8">09 · Psicofármacos</option><option value="9">10 · Corticoides e inmunosupresores</option><option value="10">11 · Diuréticos, digoxina, antiarrítmicos y estatinas</option></select>
+          <a class="suelto-btn" id="bloque-btn" href="https://infocitos.gumroad.com/l/farmacologia-bloque-0?wanted=true" target="_blank" rel="noopener">Comprar este bloque con tarjeta</a>
+          <p class="suelto-qr">¿Prefieres pagar con QR en Bs? <a id="bloque-wa" href="https://wa.me/59177343575?text=Hola%2C%20quiero%20comprar%20por%20QR%20un%20bloque%20suelto%20de%20Farmacolog%C3%ADa" target="_blank" rel="noopener">Escríbenos por WhatsApp</a> y te enviamos el QR.</p>
+        </div>
         <div><b data-precio="pack">99 Bs</b>Farmacología + Microbiología (próximamente)</div>
       </div>
     </div>
@@ -610,6 +627,19 @@ new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecti
     opc.querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed",x===b?"true":"false");});
     yo.scrollIntoView({block:"start",behavior:"smooth"});
   });
+})();
+</script>
+
+<script>
+(function(){
+  var sel=document.getElementById("bloque-sel"),btn=document.getElementById("bloque-btn"),wa=document.getElementById("bloque-wa");
+  if(!sel) return;
+  function pinta(){
+    var n=sel.value, nom=sel.options[sel.selectedIndex].text.replace(/^\d+ · /,"");
+    btn.href="https://infocitos.gumroad.com/l/farmacologia-bloque-"+n+"?wanted=true";
+    wa.href="https://wa.me/59177343575?text="+encodeURIComponent("Hola, quiero comprar por QR el bloque de Farmacología: "+nom);
+  }
+  sel.addEventListener("change",pinta); pinta();
 })();
 </script>
 </body>
