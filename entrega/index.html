@@ -38,7 +38,13 @@
   input[type=text], input[type=tel], input[type=email] {
     width: 100%; font: inherit; padding: 11px 12px; border: 1px solid #cfc8e2; border-radius: 10px; background: #fff;
   }
-  input:focus { outline: 2px solid var(--violeta); outline-offset: 1px; border-color: var(--violeta); }
+  input:focus, select:focus { outline: 2px solid var(--violeta); outline-offset: 1px; border-color: var(--violeta); }
+  .telefono { display: flex; gap: 8px; }
+  .telefono select {
+    flex: 0 0 auto; max-width: 48%; font: inherit; padding: 11px 8px; border: 1px solid #cfc8e2;
+    border-radius: 10px; background: #fff; color: var(--texto);
+  }
+  .telefono input { flex: 1 1 auto; min-width: 0; }
   .check { display: flex; gap: 10px; align-items: flex-start; font-weight: 400; margin-top: 16px; }
   .check input { margin-top: 4px; width: 18px; height: 18px; flex: none; }
   button, .boton {
@@ -92,7 +98,34 @@
     <label for="nombre">Nombre y apellido</label>
     <input id="nombre" name="name" type="text" autocomplete="name" maxlength="60" required>
     <label for="celular">Celular</label>
-    <input id="celular" name="tel" type="tel" autocomplete="tel" maxlength="20" placeholder="+591 7…" required>
+    <div class="telefono">
+      <select id="prefijo" aria-label="Prefijo del país">
+        <option value="+591" selected>Bolivia (+591)</option>
+        <option value="+54">Argentina (+54)</option>
+        <option value="+55">Brasil (+55)</option>
+        <option value="+56">Chile (+56)</option>
+        <option value="+57">Colombia (+57)</option>
+        <option value="+506">Costa Rica (+506)</option>
+        <option value="+53">Cuba (+53)</option>
+        <option value="+593">Ecuador (+593)</option>
+        <option value="+503">El Salvador (+503)</option>
+        <option value="+34">España (+34)</option>
+        <option value="+1">Estados Unidos (+1)</option>
+        <option value="+502">Guatemala (+502)</option>
+        <option value="+504">Honduras (+504)</option>
+        <option value="+52">México (+52)</option>
+        <option value="+505">Nicaragua (+505)</option>
+        <option value="+507">Panamá (+507)</option>
+        <option value="+595">Paraguay (+595)</option>
+        <option value="+51">Perú (+51)</option>
+        <option value="+1">Puerto Rico (+1)</option>
+        <option value="+1">República Dominicana (+1)</option>
+        <option value="+598">Uruguay (+598)</option>
+        <option value="+58">Venezuela (+58)</option>
+        <option value="">Otro país (escribe el prefijo)</option>
+      </select>
+      <input id="celular" name="tel" type="tel" autocomplete="tel-national" inputmode="tel" maxlength="16" placeholder="7xxxxxxx" required>
+    </div>
     <label class="check"><input id="acepto" type="checkbox" required> Acepto que mi nombre, mi correo y mi celular se impriman en mis PDF. Después no se pueden cambiar.</label>
     <div class="acciones"><button id="guardar" type="submit">Continuar</button></div>
     <div id="fallo-datos" class="aviso error oculto"></div>
@@ -158,12 +191,34 @@ async function iniciar() {
   }
 }
 
+// Une prefijo y número: "+591 77343575". Si escribió el número con "+", se respeta tal cual.
+function celularCompleto() {
+  const numero = $('celular').value.trim();
+  if (numero.startsWith('+')) return numero;
+  const local = numero.replace(/[^0-9 ]/g, '').trim().replace(/^0+/, '');
+  const prefijo = $('prefijo').value;
+  return prefijo ? prefijo + ' ' + local : local;
+}
+
+$('prefijo').onchange = () => {
+  const otro = !$('prefijo').value;
+  $('celular').placeholder = otro ? '+código y número' : '7xxxxxxx';
+  if (otro) $('celular').focus();
+};
+
 async function registrar(info) {
   const boton = $('guardar');
   mostrar('fallo-datos', false);
+  const celular = celularCompleto();
+  if (!$('prefijo').value && !celular.startsWith('+')) {
+    return error('fallo-datos', 'Escribe tu número empezando por + y el código de tu país.');
+  }
+  if (celular.replace(/\D/g, '').length < 8) {
+    return error('fallo-datos', 'Revisa tu número de celular: parece incompleto.');
+  }
   boton.disabled = true;
   try {
-    const r = await llamar({ action: 'registrar', t: token, nombre: $('nombre').value, celular: $('celular').value });
+    const r = await llamar({ action: 'registrar', t: token, nombre: $('nombre').value, celular });
     if (!r.ok) { boton.disabled = false; return error('fallo-datos', r.error); }
     mostrar('datos', false);
     pintarArchivos(Object.assign(info, { nombre: r.nombre, celular: r.celular }));
